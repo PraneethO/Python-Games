@@ -212,5 +212,3 @@ class play_minesweeper:
             except KeyError:
                 print('')
             self.cells[item].change_numberV2(total)
-#height, width, number of bombs
-play_minesweeper(10,10,15)

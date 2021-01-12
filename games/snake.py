@@ -158,8 +158,3 @@ class Snake:
 
         self.cells[(self.row, self.column)]['bg'] = 'dark red'
         self.cells[(self.row, self.column)].cherry = True
-
-    # Creates snake with 20x20 grid
-
-
-Snake(20, 20)
