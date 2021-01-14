@@ -27,7 +27,7 @@ def quit():
 
 if __name__ == '__main__':
     main_window = tkinter.Tk()
-    main_window.title = "Python Games"
+    main_window.title("Python Games")
 
     welcome = tkinter.Label(main_window, text="Python Games", fg="Blue")
     end = tkinter.Button(main_window, text="Quit", command=quit)
@@ -45,15 +45,15 @@ if __name__ == '__main__':
     width_l = tkinter.Label(main_window, text='Enter width here...')
     bomb_l = tkinter.Label(main_window, text='Enter bomb here...')
 
-    checkers_b.grid(row=1, column=0)
+    checkers_b.grid(row=1, column=1)
     tetris_b.grid(row=1, column=2)
-    snake_b.grid(row=1, column=4)
-    minesweeper_b.grid(row=1, column=6)
+    snake_b.grid(row=1, column=3)
+    minesweeper_b.grid(row=1, column=4)
     end.grid(row=1, column=8)
 
-    height_l.grid(row=2, column=0)
-    width_l.grid(row=3, column=0)
-    bomb_l.grid(row=4, column=0)
+    height_l.grid(row=2, column=0, columnspan=3)
+    width_l.grid(row=3, column=0, columnspan=3)
+    bomb_l.grid(row=4, column=0, columnspan=3)
 
     height_entry.grid(row=3, column=4, columnspan=4)
     width_entry.grid(row=2, column=4, columnspan=4)

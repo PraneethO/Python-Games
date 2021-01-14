@@ -1,16 +1,14 @@
 import tkinter
 import random
+import time
 
 
-
-
-
-# Class for charachteristics of each square
-class cell(tkinter.Label):
-    def __init__(self, master, coords, velocity='0', cherry=False):
+# Class for characteristics of each square
+class Cell(tkinter.Label):
+    def __init__(self, master, coordinate, velocity='0', cherry=False):
         tkinter.Label.__init__(self, master, height=1, width=2, text='', bg='grey', font=('Arial', 24), relief='flat')
 
-        self.coords = coords
+        self.coordinate = coordinate
         self.cherry = cherry
         self.velocity = velocity
 
@@ -26,6 +24,12 @@ class cell(tkinter.Label):
 # Main class to play game
 class Snake:
     def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.snake = []
+        self.row = random.randint(0, self.width - 1)
+        self.column = random.randint(0, self.height - 1)
+        self.vertex = 0
         self.window = tkinter.Tk()
 
         self.window.title("Snake!")
@@ -41,7 +45,7 @@ class Snake:
         for row in range(width):
             for column in range(height):
                 coords = (row, column)
-                self.cells[coords] = cell(self.window, coords)
+                self.cells[coords] = Cell(self.window, coords)
                 self.cells[coords].grid(row=row, column=column)
 
         # Initializes Listeners
@@ -55,7 +59,7 @@ class Snake:
         # Creates snake
         self.create_snake()
         # Starts snake movement on timer (in-class)
-        self.move()
+        self.move
         self.window.mainloop()
 
     # Initially creates snake with self.size as length
@@ -67,22 +71,18 @@ class Snake:
     # Turns the turtle left on command
     def turn_left(self, event):
         self.direction = 'Left'
-        self.vertex = self.snake[len(self.snake) - 1]
 
     # Turns the turtle right on command
     def turn_right(self, event):
         self.direction = 'Right'
-        self.vertex = self.snake[len(self.snake) - 1]
 
     # Turns the turtle up on command
     def turn_up(self, event):
         self.direction = 'Up'
-        self.vertex = self.snake[len(self.snake) - 1]
 
     # Turns the turtle down on command
     def turn_down(self, event):
         self.direction = 'Down'
-        self.vertex = self.snake[len(self.snake) - 1]
 
     # Moves the turtle periodically (0.25 seconds)
     def move(self):
@@ -90,40 +90,37 @@ class Snake:
         try:
             # Old Code
 
-
             for n in range(1):
 
                 for item in self.snake:
                     self.cells[item]['bg'] = 'grey'
 
                 if self.direction == 'Right':
-                    itera = 0
+                    iterate = 0
                     for item in self.snake:
-                        self.snake[itera] = (item[0],item[1]+1)
-                        itera += 1
+                        self.snake[iterate] = (item[0], item[1] + 1)
+                        iterate += 1
 
                 if self.direction == 'Left':
-                    itera = 0
+                    iterate = 0
                     for item in self.snake:
-                        self.snake[itera] = (item[0],item[1]-1)
-                        itera += 1
+                        self.snake[iterate] = (item[0], item[1] - 1)
+                        iterate += 1
 
                 if self.direction == 'Down':
-                    itera = 0
+                    iterate = 0
                     for item in self.snake:
-                        self.snake[itera] = (item[0]+1,item[1])
-                        itera += 1
+                        self.snake[iterate] = (item[0] + 1, item[1])
+                        iterate += 1
 
                 if self.direction == 'Up':
-                    itera = 0
+                    iterate = 0
                     for item in self.snake:
-                        self.snake[itera] = (item[0]-1,item[1])
-                        itera += 1
-
+                        self.snake[iterate] = (item[0] - 1, item[1])
+                        iterate += 1
 
                 for item in self.snake:
                     self.cells[item]['bg'] = 'light green'
-
 
             # New Code (Maybe?)
 

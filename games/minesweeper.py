@@ -168,47 +168,47 @@ class play_minesweeper:
                 if below_number.get_number() == 'bomb':
                     total += 1
             except KeyError:
-                print('')
+                pass
             try:
                 above_number = self.cells[(item[0]+1,item[1])]
                 if above_number.get_number() == 'bomb':
                     total += 1
             except KeyError:
-                print('')
+                pass
             try:
                 right_number = self.cells[(item[0],item[1]+1)]
                 if right_number.get_number() == 'bomb':
                     total += 1
             except KeyError:
-                print('')
+                pass
             try:
                 left_number = self.cells[(item[0],item[1]-1)]
                 if left_number.get_number() == 'bomb':
                     total += 1
             except KeyError:
-                print('')
+                pass
             try:
                 upper_r = self.cells[(item[0]-1,item[1]+1)]
                 if upper_r.get_number() == 'bomb':
                     total += 1
             except KeyError:
-                print('')
+                pass
             try:
                 upper_l = self.cells[(item[0]-1,item[1]-1)]
                 if upper_l.get_number() == 'bomb':
                     total += 1
             except KeyError:
-                print('')
+                pass
             try:
                 lower_r = self.cells[(item[0]+1,item[1]+1)]
                 if lower_r.get_number() == 'bomb':
                     total += 1
             except KeyError:
-                print('')
+                pass
             try:
                 lower_l = self.cells[(item[0]+1,item[1]-1)]
                 if lower_l.get_number() == 'bomb':
                     total += 1
             except KeyError:
-                print('')
+                pass
             self.cells[item].change_numberV2(total)
