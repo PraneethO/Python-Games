@@ -1,10 +1,12 @@
 import tkinter
 
+
 class pawn:
-    def __init__(self, canvas_obj, color):
+    def __init__(self, label_obj, color):
         if color == "B":
-            black_pawn_img = tkinter.PhotoImage(file="Images/Black_Pawn.gif")
-            canvas_obj.create_image(50, 10, image=black_pawn_img, anchor=tkinter.NW)
+            img = tkinter.PhotoImage(file="Images/Black_Pawn.gif")
+            label_obj.configure(image=img)
+
 
 
 class play_checkers:
@@ -18,10 +20,11 @@ class play_checkers:
         for row in range(8):
             for column in range(8):
                 if counter % 2 == 1:
-                    self.cells[(row, column)] = tkinter.Canvas(self.window, height=50, width=50, bg="green")
+                    self.cells[(row, column)] = tkinter.Label(self.window, height=1, width=2, bg='green')
+                    self.cells[(row, column)].grid(row=row, column=column)
                 else:
-                    self.cells[(row, column)] = tkinter.Canvas(self.window, height=50, width=50, bg="white")
-                self.cells[(row, column)].grid(row=row, column=column)
+                    self.cells[(row, column)] = tkinter.Label(self.window, height=1, width=2)
+                    self.cells[(row, column)].grid(row=row, column=column)
                 counter += 1
             counter -= 1
 
