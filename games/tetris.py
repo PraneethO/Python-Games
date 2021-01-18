@@ -46,6 +46,7 @@ class play_tetris:
         self.current_block = block()
         self.block_list.append(self.current_block)
         print(self.current_block.get_item())
+        self.window.mainloop()
 
         for row in range(self.width):
             for column in range(self.height):
