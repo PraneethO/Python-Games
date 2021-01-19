@@ -91,6 +91,19 @@ class queen:
         self.queen.create_image((38, 38), image=self.img)
 
 
+class square(tkinter.Canvas):
+    def __init__(self, master, row, column, piece=False):
+        self.piece = piece
+        tkinter.Canvas.__init__(self, master, bg='green', height=70, width=70)
+        self.grid(row=row, column=column)
+
+        self.bind("<Button-1>", self.highlight)
+
+    def highlight(self, event):
+        if self.piece:
+            self['bg'] = 'yellow'
+
+
 class board:
     def __init__(self, window):
         self.windowh = window
@@ -101,8 +114,7 @@ class board:
         for row in range(8):
             for column in range(8):
                 if counter % 2 == 1:
-                    self.cells[(row, column)] = tkinter.Canvas(self.windowh, bg='green', height=70, width=70)
-                    self.cells[(row, column)].grid(row=row, column=column)
+                    self.cells[(row, column)] = square(self.windowh, row, column)
                 else:
                     self.cells[(row, column)] = tkinter.Canvas(self.windowh, height=70, width=70)
                     self.cells[(row, column)].grid(row=row, column=column)
@@ -155,3 +167,7 @@ class play_chess:
         self.black_pieces[(0, 3)] = queen(self.window, 'B', (0, 3), self.board_cells)
         self.white_pieces[(7, 3)] = queen(self.window, 'W', (7, 3), self.board_cells)
 
+        for item in self.black_pieces:
+            self.board_cells[item].piece = True
+        for item in self.white_pieces:
+            self.board_cells[item].piece = True
