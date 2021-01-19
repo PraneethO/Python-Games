@@ -1,21 +1,19 @@
 import tkinter
 
-class play_chess:
-    class pawn(play_chess):
-        pass
-
 
 class pawn:
-    def __init__(self, master, color, coord_obj):
+    def __init__(self, master, color, coord):
+        pawn = tkinter.Canvas(master, height=64, width=64)
+        pawn.grid(row=(coord[0]), column=(coord[1]))
+
         if color == 'B':
-            #pawn = tkinter.Canvas(master, width=50, height=50)
+            img = tkinter.PhotoImage(file=r'img(GIF)/blackp.gif')
+            master.img = img
+        else:
+            img = tkinter.PhotoImage(file=r'img(GIF)/whitep.gif')
+            master.img = img
 
-            img = tkinter.PhotoImage(master=coord_obj, file="Images/test.gif")
-
-            image = coord_obj.create_image(10, 10, anchor=tkinter.NW, image=img)
-
-            #pawn.grid(row=coord[0], column=coord[1])
-        #canvas = tkinter.Canvas(master, height=50, width=50)
+        pawn.create_image((35, 35), image=img)
 
 
 class board:
@@ -28,13 +26,14 @@ class board:
         for row in range(8):
             for column in range(8):
                 if counter % 2 == 1:
-                    self.cells[(row, column)] = tkinter.Canvas(self.windowh, bg='green', height=50, width=50)
+                    self.cells[(row, column)] = tkinter.Canvas(self.windowh, bg='green', height=70, width=70)
                     self.cells[(row, column)].grid(row=row, column=column)
                 else:
-                    self.cells[(row, column)] = tkinter.Canvas(self.windowh, height=50, width=50)
+                    self.cells[(row, column)] = tkinter.Canvas(self.windowh, height=70, width=70)
                     self.cells[(row, column)].grid(row=row, column=column)
                 counter += 1
             counter -= 1
+
     def get_cells(self):
         return self.cells
 
@@ -48,5 +47,9 @@ class play_chess:
 
         self.windowh.title("Chess")
 
+        pawn(self.windowh, 'B', (1, 1))
 
         self.windowh.mainloop()
+
+
+play_chess()
