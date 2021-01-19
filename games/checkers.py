@@ -149,12 +149,11 @@ class play_chess:
         self.white_pieces[(7, 0)] = rook(self.window, 'W', (7, 0), self.board_cells)
         self.white_pieces[(7, 7)] = rook(self.window, 'W', (7, 7), self.board_cells)
 
+        self.black_pieces[(0, 4)] = king(self.window, 'B', (0, 4), self.board_cells)
+        self.white_pieces[(7, 4)] = king(self.window, 'W', (7, 4), self.board_cells)
 
-
-
-
-
-
+        self.black_pieces[(0, 3)] = queen(self.window, 'B', (0, 3), self.board_cells)
+        self.white_pieces[(7, 3)] = queen(self.window, 'W', (7, 3), self.board_cells)
 
 
 play_chess()
