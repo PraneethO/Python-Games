@@ -13,7 +13,82 @@ class pawn:
             self.img = tkinter.PhotoImage(file=r'img(GIF)/whitep.gif')
             master.img = self.img
 
-        self.pawn.create_image((35, 35), image=self.img)
+        self.pawn.create_image((38, 38), image=self.img)
+
+
+class bishop:
+    def __init__(self, master, color, coord, cell_list):
+        self.bishop = tkinter.Canvas(master, height=70, width=70, bg=cell_list[coord]['bg'])
+        self.bishop.grid(row=(coord[0]), column=(coord[1]))
+
+        if color == 'B':
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackb.gif')
+            master.img = self.img
+        else:
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/whiteb.gif')
+            master.img = self.img
+
+        self.bishop.create_image((38, 38), image=self.img)
+
+
+class knight:
+    def __init__(self, master, color, coord, cell_list):
+        self.knight = tkinter.Canvas(master, height=70, width=70, bg=cell_list[coord]['bg'])
+        self.knight.grid(row=(coord[0]), column=(coord[1]))
+
+        if color == 'B':
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackn.gif')
+            master.img = self.img
+        else:
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/whiten.gif')
+            master.img = self.img
+
+        self.knight.create_image((38, 38), image=self.img)
+
+
+class rook:
+    def __init__(self, master, color, coord, cell_list):
+        self.rook = tkinter.Canvas(master, height=70, width=70, bg=cell_list[coord]['bg'])
+        self.rook.grid(row=(coord[0]), column=(coord[1]))
+
+        if color == 'B':
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackr.gif')
+            master.img = self.img
+        else:
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/whiter.gif')
+            master.img = self.img
+
+        self.rook.create_image((38, 38), image=self.img)
+
+
+class king:
+    def __init__(self, master, color, coord, cell_list):
+        self.king = tkinter.Canvas(master, height=70, width=70, bg=cell_list[coord]['bg'])
+        self.king.grid(row=(coord[0]), column=(coord[1]))
+
+        if color == 'B':
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackk.gif')
+            master.img = self.img
+        else:
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/whitek.gif')
+            master.img = self.img
+
+        self.king.create_image((38, 38), image=self.img)
+
+
+class queen:
+    def __init__(self, master, color, coord, cell_list):
+        self.queen = tkinter.Canvas(master, height=70, width=70, bg=cell_list[coord]['bg'])
+        self.queen.grid(row=(coord[0]), column=(coord[1]))
+
+        if color == 'B':
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackq.gif')
+            master.img = self.img
+        else:
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/whiteq.gif')
+            master.img = self.img
+
+        self.queen.create_image((38, 38), image=self.img)
 
 
 class board:
@@ -47,12 +122,39 @@ class play_chess:
 
         self.window.title("Chess")
 
-        pawn_list = {}
+        self.black_pieces = {}
+        self.white_pieces = {}
 
-        for item in range(8):
-            pawn_list[(1, item)] = pawn(self.window, 'B', (1, item), self.board_cells)
+        self.create_pieces()
 
         self.window.mainloop()
+
+    def create_pieces(self):
+        for item in range(8):
+            self.black_pieces[(1, item)] = pawn(self.window, 'B', (1, item), self.board_cells)
+            self.white_pieces[(6, item)] = pawn(self.window, 'W', (6, item), self.board_cells)
+
+        self.black_pieces[(0, 2)] = bishop(self.window, 'B', (0, 2), self.board_cells)
+        self.black_pieces[(0, 5)] = bishop(self.window, 'B', (0, 5), self.board_cells)
+        self.white_pieces[(7, 2)] = bishop(self.window, 'W', (7, 2), self.board_cells)
+        self.white_pieces[(7, 5)] = bishop(self.window, 'W', (7, 5), self.board_cells)
+
+        self.black_pieces[(0, 1)] = knight(self.window, 'B', (0, 1), self.board_cells)
+        self.black_pieces[(0, 6)] = knight(self.window, 'B', (0, 6), self.board_cells)
+        self.white_pieces[(7, 1)] = knight(self.window, 'W', (7, 1), self.board_cells)
+        self.white_pieces[(7, 6)] = knight(self.window, 'W', (7, 6), self.board_cells)
+
+        self.black_pieces[(0, 0)] = rook(self.window, 'B', (0, 0), self.board_cells)
+        self.black_pieces[(0, 7)] = rook(self.window, 'B', (0, 7), self.board_cells)
+        self.white_pieces[(7, 0)] = rook(self.window, 'W', (7, 0), self.board_cells)
+        self.white_pieces[(7, 7)] = rook(self.window, 'W', (7, 7), self.board_cells)
+
+
+
+
+
+
+
 
 
 play_chess()
