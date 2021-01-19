@@ -6,7 +6,7 @@ import tkinter
 
 
 def chec():
-    checkers.play_checkers()
+    checkers.play_chess()
 
 
 def tetr():
