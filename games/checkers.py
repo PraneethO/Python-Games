@@ -7,10 +7,10 @@ class pawn:
         self.pawn.grid(row=(coord[0]), column=(coord[1]))
 
         if color == 'B':
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackp.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/blackp.gif')
             master.img = self.img
         else:
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/whitep.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/whitep.gif')
             master.img = self.img
 
         self.pawn.create_image((38, 38), image=self.img)
@@ -22,10 +22,10 @@ class bishop:
         self.bishop.grid(row=(coord[0]), column=(coord[1]))
 
         if color == 'B':
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackb.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/blackb.gif')
             master.img = self.img
         else:
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/whiteb.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/whiteb.gif')
             master.img = self.img
 
         self.bishop.create_image((38, 38), image=self.img)
@@ -37,10 +37,10 @@ class knight:
         self.knight.grid(row=(coord[0]), column=(coord[1]))
 
         if color == 'B':
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackn.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/blackn.gif')
             master.img = self.img
         else:
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/whiten.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/whiten.gif')
             master.img = self.img
 
         self.knight.create_image((38, 38), image=self.img)
@@ -52,10 +52,10 @@ class rook:
         self.rook.grid(row=(coord[0]), column=(coord[1]))
 
         if color == 'B':
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackr.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/blackr.gif')
             master.img = self.img
         else:
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/whiter.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/whiter.gif')
             master.img = self.img
 
         self.rook.create_image((38, 38), image=self.img)
@@ -67,10 +67,10 @@ class king:
         self.king.grid(row=(coord[0]), column=(coord[1]))
 
         if color == 'B':
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackk.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/blackk.gif')
             master.img = self.img
         else:
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/whitek.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/whitek.gif')
             master.img = self.img
 
         self.king.create_image((38, 38), image=self.img)
@@ -82,10 +82,10 @@ class queen:
         self.queen.grid(row=(coord[0]), column=(coord[1]))
 
         if color == 'B':
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackq.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/blackq.gif')
             master.img = self.img
         else:
-            self.img = tkinter.PhotoImage(file=r'img(GIF)/whiteq.gif')
+            self.img = tkinter.PhotoImage(master=master, file=r'img(GIF)/whiteq.gif')
             master.img = self.img
 
         self.queen.create_image((38, 38), image=self.img)
@@ -155,5 +155,3 @@ class play_chess:
         self.black_pieces[(0, 3)] = queen(self.window, 'B', (0, 3), self.board_cells)
         self.white_pieces[(7, 3)] = queen(self.window, 'W', (7, 3), self.board_cells)
 
-
-play_chess()
