@@ -2,18 +2,18 @@ import tkinter
 
 
 class pawn:
-    def __init__(self, master, color, coord):
-        pawn = tkinter.Canvas(master, height=64, width=64)
-        pawn.grid(row=(coord[0]), column=(coord[1]))
+    def __init__(self, master, color, coord, cell_list):
+        self.pawn = tkinter.Canvas(master, height=70, width=70, bg=cell_list[coord]['bg'])
+        self.pawn.grid(row=(coord[0]), column=(coord[1]))
 
         if color == 'B':
-            img = tkinter.PhotoImage(file=r'img(GIF)/blackp.gif')
-            master.img = img
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/blackp.gif')
+            master.img = self.img
         else:
-            img = tkinter.PhotoImage(file=r'img(GIF)/whitep.gif')
-            master.img = img
+            self.img = tkinter.PhotoImage(file=r'img(GIF)/whitep.gif')
+            master.img = self.img
 
-        pawn.create_image((35, 35), image=img)
+        self.pawn.create_image((35, 35), image=self.img)
 
 
 class board:
@@ -40,16 +40,19 @@ class board:
 
 class play_chess:
     def __init__(self):
-        self.windowh = tkinter.Tk()
-        self.board = board(self.windowh)
+        self.window = tkinter.Tk()
+        self.board = board(self.window)
 
         self.board_cells = self.board.get_cells()
 
-        self.windowh.title("Chess")
+        self.window.title("Chess")
 
-        pawn(self.windowh, 'B', (1, 1))
+        pawn_list = {}
 
-        self.windowh.mainloop()
+        for item in range(8):
+            pawn_list[(1, item)] = pawn(self.window, 'B', (1, item), self.board_cells)
+
+        self.window.mainloop()
 
 
 play_chess()
