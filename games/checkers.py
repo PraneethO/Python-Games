@@ -1,8 +1,16 @@
 import tkinter
 
 
+class pieces:
+    def __init__(self):
+        pass
+
+
 class pawn:
     def __init__(self, master, color, coord, cell_list):
+        self.coord = coord
+        self.color = color
+        self.cell_list = cell_list
         self.pawn = tkinter.Canvas(master, height=70, width=70, bg=cell_list[coord]['bg'])
         self.pawn.grid(row=(coord[0]), column=(coord[1]))
 
@@ -14,6 +22,17 @@ class pawn:
             master.img = self.img
 
         self.pawn.create_image((38, 38), image=self.img)
+
+    def highlight_update(self):
+        if self.coord[0] == 1:
+            # It can move 2 places
+            if self.color == 'B':
+                if self.cell_list[(self.coord[0] + 2, self.coord[1])].piece or (
+                        self.cell_list[(self.coord[0] + 1, self.coord[1])].piece):
+                    pass
+                else:
+                    self.cell_list[(self.coord[0] + 2, self.coord[1])].highlight()
+                    self.cell_list[(self.coord[0] + 1, self.coord[1])].highlight()
 
 
 class bishop:
@@ -92,16 +111,22 @@ class queen:
 
 
 class square(tkinter.Canvas):
-    def __init__(self, master, row, column, piece=False):
-        self.piece = piece
-        tkinter.Canvas.__init__(self, master, bg='green', height=70, width=70)
+    def __init__(self, master, row, column, piece=False, bg='green'):
+        tkinter.Canvas.__init__(self, master, bg=bg, height=70, width=70)
         self.grid(row=row, column=column)
 
         self.bind("<Button-1>", self.highlight)
 
-    def highlight(self, event):
-        if self.piece:
-            self['bg'] = 'yellow'
+        self.piece = piece
+
+    def highlight(self):
+        self['bg'] = '#B0FCC3'
+
+    def analyze(self):
+        self['bg'] = 'red'
+
+    def get_piece(self):
+        return self.piece
 
 
 class board:
@@ -116,8 +141,7 @@ class board:
                 if counter % 2 == 1:
                     self.cells[(row, column)] = square(self.windowh, row, column)
                 else:
-                    self.cells[(row, column)] = tkinter.Canvas(self.windowh, height=70, width=70)
-                    self.cells[(row, column)].grid(row=row, column=column)
+                    self.cells[(row, column)] = square(self.windowh, row, column, bg='white')
                 counter += 1
             counter -= 1
 
@@ -138,6 +162,10 @@ class play_chess:
         self.white_pieces = {}
 
         self.create_pieces()
+
+        for item in range(8):
+            self.black_pieces[(1, item)].highlight_update()
+
 
         self.window.mainloop()
 
