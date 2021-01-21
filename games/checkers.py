@@ -9,6 +9,7 @@ class pieces:
 class pawn:
     def __init__(self, master, color, coord, cell_list, bg_colors):
         self.coord = coord
+        self.bg_colors = bg_colors
         self.color = color
         self.cell_list = cell_list
         self.pawn = tkinter.Canvas(master, height=70, width=70, bg=cell_list[coord]['bg'])
@@ -23,6 +24,7 @@ class pawn:
             master.img = self.img
 
         self.pawn.create_image((38, 38), image=self.img)
+        self.pieces_list = []
 
     def highlight_update(self, event):
         if self.coord[0] == 1:
@@ -32,9 +34,34 @@ class pawn:
                         self.cell_list[(self.coord[0] + 1, self.coord[1])].piece):
                     pass
                 else:
-                    self.cell_list[(self.coord[0] + 2, self.coord[1])].highlight()
-                    self.cell_list[(self.coord[0] + 1, self.coord[1])].highlight()
-                    self.pawn['bg'] = '#B0FCC3'
+                    for item in self.cell_list:
+                        self.cell_list[item]['bg'] = self.cell_list[item].og_bg
+
+                    for item in self.pieces_list:
+                        self.pieces_list[item].change_bg(self.cell_list[item]['bg'])
+
+                    if self.cell_list[(self.coord[0] + 2, self.coord[1])]['bg'] == '#B0FCC3':
+                        self.cell_list[(self.coord[0] + 2, self.coord[1])]['bg'] = self.cell_list[
+                            (self.coord[0] + 2, self.coord[1])].og_bg
+                        self.cell_list[(self.coord[0] + 1, self.coord[1])]['bg'] = self.cell_list[
+                            (self.coord[0] + 1, self.coord[1])].og_bg
+                        self.pawn['bg'] = self.bg_colors[self.coord]
+                    else:
+                        self.cell_list[(self.coord[0] + 2, self.coord[1])].highlight()
+                        self.cell_list[(self.coord[0] + 1, self.coord[1])].highlight()
+                        self.pawn['bg'] = '#B0FCC3'
+
+    def get_pieces(self, pieces_list):
+        self.pieces_list = pieces_list
+
+    def change_bg(self, color):
+        self.pawn['bg'] = color
+
+    def move(self, coord):
+        self.pawn.grid(row=coord[0], column=coord[1])
+
+    def get_bg(self):
+        return self.pawn['bg']
 
 
 class bishop:
@@ -50,6 +77,16 @@ class bishop:
             master.img = self.img
 
         self.bishop.create_image((38, 38), image=self.img)
+        self.pieces_list = []
+
+    def get_pieces(self, pieces_list):
+        self.pieces_list = pieces_list
+
+    def change_bg(self, color):
+        self.bishop['bg'] = color
+
+    def get_bg(self):
+        return self.bishop['bg']
 
 
 class knight:
@@ -65,6 +102,16 @@ class knight:
             master.img = self.img
 
         self.knight.create_image((38, 38), image=self.img)
+        self.pieces_list = []
+
+    def get_pieces(self, pieces_list):
+        self.pieces_list = pieces_list
+
+    def change_bg(self, color):
+        self.knight['bg'] = color
+
+    def get_bg(self):
+        return self.knight['bg']
 
 
 class rook:
@@ -80,6 +127,16 @@ class rook:
             master.img = self.img
 
         self.rook.create_image((38, 38), image=self.img)
+        self.pieces_list = []
+
+    def get_pieces(self, pieces_list):
+        self.pieces_list = pieces_list
+
+    def change_bg(self, color):
+        self.rook['bg'] = color
+
+    def get_bg(self):
+        return self.rook['bg']
 
 
 class king:
@@ -95,6 +152,16 @@ class king:
             master.img = self.img
 
         self.king.create_image((38, 38), image=self.img)
+        self.pieces_list = []
+
+    def get_pieces(self, pieces_list):
+        self.pieces_list = pieces_list
+
+    def change_bg(self, color):
+        self.king['bg'] = color
+
+    def get_bg(self):
+        return self.king['bg']
 
 
 class queen:
@@ -110,6 +177,16 @@ class queen:
             master.img = self.img
 
         self.queen.create_image((38, 38), image=self.img)
+        self.pieces_list = []
+
+    def get_pieces(self, pieces_list):
+        self.pieces_list = pieces_list
+
+    def change_bg(self, color):
+        self.queen['bg'] = color
+
+    def get_bg(self):
+        return self.queen['bg']
 
 
 class square(tkinter.Canvas):
@@ -117,10 +194,14 @@ class square(tkinter.Canvas):
         self.og_bg = bg
         tkinter.Canvas.__init__(self, master, bg=bg, height=70, width=70)
         self.grid(row=row, column=column)
+        self.coord = (row, column)
 
         self.bind("<Button-2>", self.analyze)
+        self.bind("<Button-1>", self.move)
 
         self.piece = piece
+        self.black_pieces = []
+        self.white_pieces = []
 
     def highlight(self):
         self['bg'] = '#B0FCC3'
@@ -133,6 +214,16 @@ class square(tkinter.Canvas):
 
     def get_piece(self):
         return self.piece
+
+    def move(self, event):
+        if self['bg'] == '#B0FCC3':
+            for item in self.black_pieces:
+                if self.black_pieces[item].get_bg() == '#B0FCC3':
+                    self.black_pieces[item].move(self.coord)
+
+    def get_pieces(self, black_pieces, white_pieces):
+        self.black_pieces = black_pieces
+        self.white_pieces = white_pieces
 
 
 class board:
@@ -206,5 +297,11 @@ class play_chess:
 
         for item in self.black_pieces:
             self.board_cells[item].piece = True
+            self.black_pieces[item].get_pieces(self.black_pieces)
         for item in self.white_pieces:
             self.board_cells[item].piece = True
+            self.white_pieces[item].get_pieces(self.white_pieces)
+
+        for item in self.board_cells:
+            self.board_cells[item].get_pieces(self.black_pieces, self.white_pieces)
+
